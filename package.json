@@ -1,0 +1,37 @@
+{
+  "name": "media-recorder",
+  "version": "1.0.0",
+  "description": "A lightweight media recorder for recording webcam video from the web browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carnblarn/media-recorder.git"
+  },
+  "author": "Sean Carney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carnblarn/media-recorder/issues"
+  },
+  "homepage": "https://github.com/carnblarn/media-recorder#readme",
+  "dependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "webrtc-adapter": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.5.3",
+    "eslint-plugin-react": "^5.2.2"
+  }
+}
