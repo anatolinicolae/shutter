@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './src/Recorder.js',
+    './src/Shutter.js',
   ],
   module: {
     loaders: [{
@@ -16,7 +16,7 @@ module.exports = {
     path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js',
-    library: 'Recorder'
+    library: 'Shutter'
   },
   devServer: {
     contentBase: './dist',

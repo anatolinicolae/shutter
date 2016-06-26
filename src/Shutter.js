@@ -1,7 +1,7 @@
 import Adapter from 'webrtc-adapter';
 
 
-class Recorder {
+class Shutter {
 
   // The only necesary parameter is an id of the video element to use
   constructor(options) {

@@ -1,7 +1,7 @@
 {
-  "name": "media-recorder",
-  "version": "1.0.0",
-  "description": "A lightweight media recorder for recording webcam video from the web browser",
+  "name": "shutter",
+  "version": "0.0.1",
+  "description": "Record webcam videos directly from the browser using the new MediaRecorder API",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carnblarn/media-recorder.git"
+    "url": "git+https://github.com/carnblarn/shutter.git"
   },
   "author": "Sean Carney",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/carnblarn/media-recorder/issues"
+    "url": "https://github.com/carnblarn/shutter/issues"
   },
-  "homepage": "https://github.com/carnblarn/media-recorder#readme",
+  "homepage": "https://github.com/carnblarn/shutter#readme",
   "dependencies": {
     "babel-core": "^6.9.1",
     "babel-loader": "^6.2.4",
