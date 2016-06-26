@@ -1,14 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>Not a SoundCloud React Redux App</title>
+      <title>VideoRecorder Test</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+      <style>
+        #console {
+          font-family: monospace;
+          background-color: #DDD;
+
+        }
+        #console p {
+          margin-bottom: 2px;
+        }
+      </style>
   </head>
-  <body>
-  <video id="video"></video>
+  <body>  
+    <div class="container">
+    <div class="row">Current state of recorder: <em id="state">inactive</em></div>
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-2">
+        <video id="video"></video>
+      </div>      
+    </div>
+    <div style="text-align:center" class="row">
+      <button type="button" class="btn btn-primary" id="start">Start Recording</button>
+      <button type="button" class="btn btn-primary" id="stop">Stop Recording</button>
+    </div>
+    <div class="row">
+      <p><a href="#" id="downloadLink">Download</a></p>
+    </div>
+
+    <div id="console" class=" col-md-6 row">
+    </div>
+
+    </div>
     <script src="bundle.js"></script>
     <script type="text/javascript">
-      var m = new Recorder('video');
-      m.getUserMedia();
-    </script>
+    (function() {
+      var oldLog = console.log;
+      console.log = function(message) {
+        var p = document.createElement('p');
+        p.innerHTML = '- ' +message;
+        document.getElementById('console').appendChild(p);
+        oldLog.apply(console, arguments);
+      };
+    })();
+      var options = {
+        selector: 'video',
+        height: 240,
+        width: 320,
+        logging: true,
+      };
+      var recorder = new Recorder(options);
+      recorder.getUserMedia();
+      document.getElementById('start').addEventListener('click', function() {
+        recorder.start();
+      });
+      document.getElementById('stop').addEventListener('click', function() {
+        recorder.stop();
+        document.getElementById('video').src = recorder.getDownloadLink();
+        document.getElementById('video').controls = true;
+
+        var link = document.getElementById('downloadLink');
+        link.href = recorder.getDownloadLink();
+        link.download = 'video.webm';
+      });
+
+</script>
   </body>
 </html>

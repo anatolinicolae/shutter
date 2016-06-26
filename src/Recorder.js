@@ -1,24 +1,24 @@
-import Adapter from 'webrtc-adapter/out';
+import Adapter from 'webrtc-adapter';
 
 
 class Recorder {
 
   // The only necesary parameter is an id of the video element to use
   constructor(options) {
+    this.logging = options.logging || false;
     this.stream = null;
     // The options can just be a string and it'll use all the defaults
     this.selector = typeof options === 'string' ? options : options.selector;
 
-    this.height = options.height || 640;
+    this.width = options.width || 640;
     this.height = options.height || 480;
+
     this.mimeType = options.mimeType || 'video/webm';
 
     if (!this.isTypeSupported(this.mimeType)) {
       this.error('This browser does not support the mimeType "', this.mimeType, '"');
     }
 
-    // Inner workings
-    this.state = 'inactive';
     this.stream = null;
     this.mediaRecorder = null;
     this.chunks = [];
@@ -27,20 +27,39 @@ class Recorder {
       this.error('Webcam videos are not allowed on insecure origins. Please use HTTPS');
     }
 
-    this.video = document.querySelector('video');
+    this.video = document.querySelector('video#video');
+    this.video.setAttribute('autoplay', true);
+    this.video.setAttribute('muted', true);
+
     if (!this.video) {
-      this.error('No video elemnt found');
+      this.error('No video element found');
     }
+    this.log('Created Recorder');
   }
 
-  getUserMedia() {
-    return navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  getUserMedia(callback) {
+    // There are the optional constraints but those are very unpredictable
+    const constraints = {
+      video: { width: this.width, height: this.height },
+      audio: true,
+    };
+    return navigator.mediaDevices.getUserMedia(constraints)
       .then((mediaStream) => {
+        this.log('Webcam hooked up');
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
         this.handleStream(mediaStream);
+        if (callback && typeof(callback) === 'function') {
+          callback(mediaStream);
+        }
       })
-      .catch(this.getUserMediaError());
+      .catch(() => {
+        this.getUserMediaError();
+      });
+  }
+
+  isReadyToRecord() {
+    return !! this.stream;
   }
 
   // Private method called to handle hte media stream once permission has been granted by the user
@@ -56,30 +75,46 @@ class Recorder {
       }
     };
 
-    this.mediaRecorder.onerror = () => {};
+    this.mediaRecorder.onerror = (error) => {
+      this.error(error);
+    };
     this.mediaRecorder.onpause = () => {};
     this.mediaRecorder.onresume = () => {};
     this.mediaRecorder.onstart = () => {};
     this.mediaRecorder.onstop = () => {
 
     };
-    this.mediaRecorder.onwarning = () => {};
+    this.mediaRecorder.onwarning = (warning) => {
+      this.error(warning);
+    };
+  }
+
+  getState() {
+    if (!this.mediaRecorder) {
+      return 'inactive';
+    }
+    return this.mediaRecorder.state;
   }
 
   getUserMediaError(error) {
-    console.log(error);
+    this.error(error);
   }
 
   start() {
-    this.mediaRecorder.start();
+    this.mediaRecorder.start(10);
+    this.log('Recording Started');
   }
 
   stop() {
     this.mediaRecorder.stop();
+    this.blob = new Blob(this.chunks, { type: this.mimeType });
+    this.log('Recording Finished');
+    const fileSize = (this.blob.size / 1048576).toFixed(3) + 'mb';
+    this.log('File Size: ' + fileSize);
   }
 
-  getDownloadLink() {
-
+  getLinkToFile() {
+    return window.URL.createObjectURL(this.blob);
   }
 
 
@@ -99,6 +134,12 @@ class Recorder {
 
   error(message) {
     console.log('Recorder Error: ', message);
+  }
+
+  log(message) {
+    if (this.logging) {
+      console.log(message);
+    }
   }
 
 }
