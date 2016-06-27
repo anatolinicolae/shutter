@@ -10,13 +10,19 @@ npm install shutter
 ```
 
 
-## The Simplest Use
+### The Simplest Use
 
-```js
+HTML:
+```html
 <video id="video"></video>
+```
+
+JS:
+```js
 ...
 // Pass in a query selector of the video element you want to use
 var mediaRecorder = new Shutter('#video');
+
 mediaRecorder.getUserMedia();
 ...
 mediaRecorder.start();
@@ -25,14 +31,14 @@ mediaRecorder.stop(function(url){
    // Do whatever you want with the url here
    // Examples include:
    // Setting a download link so the user can download the video file
-   // Upload the URL to a server
+   // Upload the blob to your server
 });
 
 ```
 
 
 
-## How to use
+### More In-Depth
 
 
 ``` js
@@ -88,6 +94,8 @@ A few common problems when using the MediaRecorder API:
 - Although Chrome for Android has added this feature, this library has not been tested on it
 - When using getUserMedia, the video element should have `autoplay` turned on so the stream is displayed immediately
 - It's also recommended to have `muted` on during recording to avoid any weird feedback effects.
+- Configuring the bitrate for the video and audio is in the spec, but due to a [mix-up with kilobits and bits](https://bugs.chromium.org/p/chromium/issues/detail?id=605750&can=1&q=MediaRecorder%20bitrate&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) it does not work in Chrome 
+- Likewise, pausing and resuming does not work in Chrome 49 and Chrome 50 due to [this issue](https://bugs.chromium.org/p/chromium/issues/detail?id=593560&can=1&q=MediaRecorder%20pausing&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified)
 
 
 ### Future Work
