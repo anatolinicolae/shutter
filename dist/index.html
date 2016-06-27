@@ -45,14 +45,18 @@
         oldLog.apply(console, arguments);
       };
     })();
+
+
+
       var options = {
-        selector: 'video',
+        selector: '#video',
         height: 240,
         width: 320,
         logging: true,
       };
-      var recorder = new Recorder(options);
+      var recorder = new Shutter(options);
       recorder.getUserMedia();
+      
       document.getElementById('start').addEventListener('click', function() {
         recorder.start();
       });

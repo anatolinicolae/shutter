@@ -1,13 +1,18 @@
 {
   "name": "shutter",
   "version": "0.0.1",
-  "description": "Record webcam videos directly from the browser using the new MediaRecorder API",
+  "description": "Save webcam videos with the MediaRecorder API",
   "main": "index.js",
   "scripts": {
-    "test": "test",
     "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
     "build": "webpack --watch"
   },
+  "keywords": [
+    "webcam",
+    "record",
+    "webrtc",
+    "mediarecorder",
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carnblarn/shutter.git"

@@ -27,13 +27,14 @@ class Shutter {
       this.error('Webcam videos are not allowed on insecure origins. Please use HTTPS');
     }
 
-    this.video = document.querySelector('video#video');
-    this.video.setAttribute('autoplay', true);
-    this.video.setAttribute('muted', true);
+    this.video = document.querySelector('video' + this.selector);
 
     if (!this.video) {
       this.error('No video element found');
     }
+
+    this.video.setAttribute('autoplay', true);
+    this.video.setAttribute('muted', true);
     this.log('Created Recorder');
   }
 
@@ -49,9 +50,7 @@ class Shutter {
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
         this.handleStream(mediaStream);
-        if (callback && typeof(callback) === 'function') {
-          callback(mediaStream);
-        }
+        return mediaStream;
       })
       .catch(() => {
         this.getUserMediaError();
@@ -105,12 +104,15 @@ class Shutter {
     this.log('Recording Started');
   }
 
-  stop() {
+  stop(callback) {
     this.mediaRecorder.stop();
     this.blob = new Blob(this.chunks, { type: this.mimeType });
     this.log('Recording Finished');
     const fileSize = (this.blob.size / 1048576).toFixed(3) + 'mb';
     this.log('File Size: ' + fileSize);
+    if (callback && typeof(callback) === 'function') {
+      callback(this.getLinkToFile());
+    }
   }
 
   getLinkToFile() {
@@ -144,5 +146,5 @@ class Shutter {
 
 }
 
-module.exports = Recorder;
+module.exports = Shutter;
 

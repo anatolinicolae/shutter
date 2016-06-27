@@ -1,6 +1,6 @@
-# Shutter [
+# Shutter 
 
-The new MediaRecorder API opened up the ability to record webcam videos 
+A lightweight and simple implementation of the MediaRecorder API for modern versions of Chrome and Firefox. 
 
 ## Download
 
@@ -10,8 +10,29 @@ npm install shutter
 ```
 
 
-## How to use
+## The Simplest Use
 
+```js
+<video id="video"></video>
+...
+// Pass in a query selector of the video element you want to use
+var mediaRecorder = new Shutter('#video');
+mediaRecorder.getUserMedia();
+...
+mediaRecorder.start();
+...
+mediaRecorder.stop(function(url){
+   // Do whatever you want with the url here
+   // Examples include:
+   // Setting a download link so the user can download the video file
+   // Upload the URL to a server
+});
+
+```
+
+
+
+## How to use
 
 
 ``` js
@@ -34,18 +55,6 @@ mediaRecorder.stop(function(downloadURL) {
 });
 
 
-
-
-
-svg.draw();
-
-// If you don't want to change the default options you can
-// also supply the constructor with a selector string.
-var svg = new Walkway('#test');
-
-svg.draw(function() {
-  console.log('Animation finished');
-});
 ```
 
 ### Options
@@ -75,8 +84,10 @@ svg.draw(function() {
 A few common problems when using the MediaRecorder API:
 
 - Getting webcam video requires `HTTPS` on websites. Insecure domains will not be able to use this library.
-- This is supported on Chrome 49+ and Firefox 25+
+- The MediaRecorder API is supported on Chrome 49+ and Firefox 25+
 - Although Chrome for Android has added this feature, this library has not been tested on it
+- When using getUserMedia, the video element should have `autoplay` turned on so the stream is displayed immediately
+- It's also recommended to have `muted` on during recording to avoid any weird feedback effects.
 
 
 ### Future Work
@@ -84,8 +95,8 @@ A few common problems when using the MediaRecorder API:
 
 ### Resources
 
-- [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
-- 
+ - [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
+ - 
 
 ### Demo
 View the example link provided near the top of this README or see it in action on my

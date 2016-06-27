@@ -16,7 +16,7 @@ module.exports = {
     path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js',
-    library: 'Shutter'
+    library: 'Shutter',
   },
   devServer: {
     contentBase: './dist',
