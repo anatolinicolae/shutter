@@ -18,6 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/carnye/shutter.git"
   },
+  "main": "./src/Shutter.js",
   "author": "Sean Carney",
   "license": "ISC",
   "bugs": {
