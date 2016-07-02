@@ -32,13 +32,14 @@ mediaRecorder.stop(function(url){
    // Examples include:
    // Setting a download link so the user can download the video file
    // Upload the blob to your server
+   // Set the src of the video element to the url to replay the captured footage
 });
 
 ```
 
 
 
-### More In-Depth
+### More In-Depth Usage
 
 
 ``` js
@@ -87,7 +88,7 @@ mediaRecorder.stop(function(downloadURL) {
  
 ### Notes
 
-A few common problems when using the MediaRecorder API:
+The MediaRecorder API is still pretty new and full of fun little bugs/features that need to be kept in mind.
 
 - Getting webcam video requires `HTTPS` on websites. Insecure domains will not be able to use this library.
 - The MediaRecorder API is supported on Chrome 49+ and Firefox 25+
@@ -98,13 +99,11 @@ A few common problems when using the MediaRecorder API:
 - Likewise, pausing and resuming does not work in Chrome 49 and Chrome 50 due to [this issue](https://bugs.chromium.org/p/chromium/issues/detail?id=593560&can=1&q=MediaRecorder%20pausing&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified)
 
 
-### Future Work
-
 
 ### Resources
 
  - [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
- - 
+ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), the most comprehensize resource
 
 ### Demo
 View the example link provided near the top of this README or see it in action on my
