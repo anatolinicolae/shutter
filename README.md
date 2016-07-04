@@ -17,7 +17,7 @@ npm install shutter
 
 ## Demo
 
-Check out a working demo on my site: (https://carntech.com/shutter.html)[https://carntech.com/shutter.html]
+Check out a working demo on my site: [https://carntech.com/shutter.html](https://carntech.com/shutter.html)
 
 
 ### The Basic Use Case
@@ -77,11 +77,11 @@ getCurrentTime();
 
 // Returns the file size of the video in megabits
 // Can only be called after recording has completed and stop() used
-getFileSize() 
+getFileSize(); 
 
 // Returns a link to the blob URL file of the recorded video
 // Can only be called after recording has completed and stop() used
-getLinkToFile()
+getLinkToFile();
 
 ```
 
@@ -95,7 +95,7 @@ getLinkToFile()
   isRecordingSupported();
 
   // Possible types for Chrome: ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
-  isTypeSupported(type)
+  isTypeSupported(type);
 ```
 
 ### Options for Initialization
@@ -114,7 +114,7 @@ getLinkToFile()
     mimeType: 'video/webm',
     
     // The selector of the video element
-    selector: '#video'
+    selector: '#video',
 
     // Verbose mode
     logging: false,

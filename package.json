@@ -1,13 +1,13 @@
 {
   "name": "shutter",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "Save webcam videos with the MediaRecorder API",
   "main": "./dist/main.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
     "watch": "webpack --watch",
     "build": "webpack --config ./webpack.config.js --optimize-minimize --optimize-dedupe",
-    "prepublish": "npm run babel",
+    "prepublish": "npm run build",
     "babel": "babel --presets es2015,stage-2 --out-file dist/main.js src/"
   },
   "keywords": [
