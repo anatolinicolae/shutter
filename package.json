@@ -8,7 +8,6 @@
     "watch": "webpack --watch",
     "build": "webpack --config ./webpack.config.js --optimize-minimize --optimize-dedupe",
     "prepublish": "npm run build",
-    "babel": "babel --presets es2015,stage-2 --out-file dist/main.js src/"
   },
   "keywords": [
     "webcam",

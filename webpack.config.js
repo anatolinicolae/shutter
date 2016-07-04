@@ -1,3 +1,4 @@
+// The basic build process
 module.exports = {
   entry: [
     './src/Shutter.js',
