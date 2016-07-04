@@ -30,9 +30,23 @@ mediaRecorder.start();
 mediaRecorder.stop(function(url){
    // Do whatever you want with the url here
    // Examples include:
+
    // Setting a download link so the user can download the video file
+      var link = document.getElementById('download');
+      link.href = url;
+      link.download = 'video.webm';
+
    // Upload the blob to your server
+      var formData = new FormData();
+      formData.append('video', url);
+
+      var request = new XMLHttpRequest();
+      request.open("POST", "http://foo.com/submitform.php");
+      request.send(formData);
+
    // Set the src of the video element to the url to replay the captured footage
+      document.getElementById('video').src = url;
+
 });
 
 ```

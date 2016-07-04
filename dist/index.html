@@ -34,7 +34,7 @@
     </div>
 
     </div>
-    <script src="bundle.js"></script>
+    <script src="main.js"></script>
     <script type="text/javascript">
     (function() {
       var oldLog = console.log;
@@ -50,8 +50,8 @@
 
       var options = {
         selector: '#video',
-        height: 240,
-        width: 320,
+        height: 480,
+        width: 640,
         logging: true,
       };
       var recorder = new Shutter(options);
@@ -61,13 +61,14 @@
         recorder.start();
       });
       document.getElementById('stop').addEventListener('click', function() {
-        recorder.stop();
-        document.getElementById('video').src = recorder.getDownloadLink();
-        document.getElementById('video').controls = true;
+        recorder.stop(function(url) {
+          document.getElementById('video').src = url;
+          document.getElementById('video').controls = true;
 
-        var link = document.getElementById('downloadLink');
-        link.href = recorder.getDownloadLink();
-        link.download = 'video.webm';
+          var link = document.getElementById('downloadLink');
+          link.href = url;
+          link.download = 'video.webm';
+        });
       });
 
 </script>
