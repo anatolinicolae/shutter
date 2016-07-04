@@ -1,5 +1,5 @@
 import Adapter from 'webrtc-adapter';
-
+import Stopwatch from 'timer-stopwatch';
 
 class Shutter {
 
@@ -22,7 +22,11 @@ class Shutter {
     this.stream = null;
     this.mediaRecorder = null;
     this.chunks = [];
-
+    this.timer = new Stopwatch();
+    this.currentTime = 0;
+    this.timer.onTime((time) => {
+      this.currentTime = time.ms;
+    });
     if (!location.protocol === 'https:' && location.host !== 'localhost') {
       this.error('Webcam videos are not allowed on insecure origins. Please use HTTPS');
     }
@@ -52,14 +56,16 @@ class Shutter {
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
         this.handleStream(mediaStream);
-        callback(mediaStream);
+        if (callback && typeof(callback) === 'function') {
+          callback(mediaStream);
+        }
         return mediaStream;
       })
-      .catch(() => {
-        this.getUserMediaError();
+      .catch((error) => {
+        this.error(error);
       });
   }
-  
+
   isReadyToRecord() {
     return !! this.stream;
   }
@@ -80,11 +86,17 @@ class Shutter {
     this.mediaRecorder.onerror = (error) => {
       this.error(error);
     };
-    this.mediaRecorder.onpause = () => {};
-    this.mediaRecorder.onresume = () => {};
-    this.mediaRecorder.onstart = () => {};
+    this.mediaRecorder.onpause = () => {
+      this.timer.stop();
+    };
+    this.mediaRecorder.onresume = () => {
+      this.timer.start();
+    };
+    this.mediaRecorder.onstart = () => {
+      this.timer.start();
+    };
     this.mediaRecorder.onstop = () => {
-
+      this.timer.stop();
     };
     this.mediaRecorder.onwarning = (warning) => {
       this.error(warning);
@@ -96,10 +108,6 @@ class Shutter {
       return 'inactive';
     }
     return this.mediaRecorder.state;
-  }
-
-  getUserMediaError(error) {
-    this.error(error);
   }
 
   start() {
@@ -131,8 +139,9 @@ class Shutter {
     this.mediaRecorder.stop();
     this.blob = new Blob(this.chunks, { type: this.mimeType });
     this.log('Recording Finished');
-    const fileSize = (this.blob.size / 1048576).toFixed(3) + 'mb';
-    this.log('File Size: ' + fileSize);
+    this.fileSize = (this.blob.size / 1048576).toFixed(3);
+    this.log('Video Length: ' + this.getCurrentTime()/1000 + ' sec');
+    this.log('Video Size: ' + this.fileSize + 'mb');
     if (callback && typeof(callback) === 'function') {
       callback(this.getLinkToFile());
     }
@@ -140,6 +149,16 @@ class Shutter {
     this.video.setAttribute('autoplay', false);
     this.video.setAttribute('muted', false);
     this.releaseWebcam();
+  }
+
+  getCurrentTime() {
+    return this.currentTime;
+  }
+
+  // Only works after stop() has been called and the blob has been created
+  // Returns in mbs
+  getFileSize() {
+    return this.fileSize;
   }
 
 
@@ -155,6 +174,10 @@ class Shutter {
 
   getLinkToFile() {
     return window.URL.createObjectURL(this.blob);
+  }
+
+  isRecordingSupported() {
+    return !! MediaRecorder;
   }
 
 
@@ -183,6 +206,7 @@ class Shutter {
   }
 
 }
+
 
 module.exports = Shutter;
 

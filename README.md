@@ -9,6 +9,16 @@ A lightweight and simple implementation of the MediaRecorder API for modern vers
 npm install shutter
 ```
 
+#### CDN
+
+```js
+<script src="https://npmcdn.com/shutter/dist/main.js"></script>
+```
+
+## Demo
+
+Check out a working demo on my site: (https://carntech.com/shutter.html)[https://carntech.com/shutter.html]
+
 
 ### The Basic Use Case
 
@@ -20,6 +30,8 @@ HTML:
 JS:
 ```js
 // Pass in a query selector of the video element you want to use
+// You can initialize with a string selector, or an options object
+// Explained in more depth below
 var shutter = new Shutter('#video');
 ...
 shutter.getUserMedia();
@@ -31,15 +43,15 @@ shutter.pause();
 shutter.resume();
 ...
 shutter.stop(function(url) {
-   // Do whatever you want with the blob url here
-   // Examples include:
+   // Do whatever you want with the link to the finished video here
+   // Potential Ideas:
 
-   // Setting a download link so the user can download the video file
+   // Setting a download so the user can download the video file
       var link = document.getElementById('download');
       link.href = url;
       link.download = 'video.webm';
 
-   // Upload the blob to your server
+   // Upload the video to your server
       var formData = new FormData();
       formData.append('video', url);
 
@@ -56,32 +68,37 @@ shutter.stop(function(url) {
 
 
 
-### More In-Depth Usage
+### Additional Methods
 
 
 ``` js
-// Create a new instance, options are explained below
-var mediaRecorder = new Shutter(options);
+// Returns the elapsed time of the recorded video in milliseconds
+getCurrentTime();
 
-// Request permission to use the webcam video.
-mediaRecorder.getUserMedia(function(streamURL) {
-  // Set a video src to the stream URL to display the webcam video the user
-  document.getElementById('video').src = streamURL;
-});
- 
-// Start recording
-mediaRecorder.start();
+// Returns the file size of the video in megabits
+// Can only be called after recording has completed and stop() used
+getFileSize() 
 
-// Stop Recording
-mediaRecorder.stop(function(downloadURL) {
-  // Set a link to this URL to let the user download the file
-  // OR, use the URL to send the file to a server
-});
-
+// Returns a link to the blob URL file of the recorded video
+// Can only be called after recording has completed and stop() used
+getLinkToFile()
 
 ```
 
-### Options
+### Methods for Understanding the MediaRecorder API
+
+```js
+  // While in the spec, pausing is only supported in Chrome 51+ and all Firefox
+  isPausingSupported();
+  
+  // Chrome 49+ and Firefox 25+ are the only browsers supported
+  isRecordingSupported();
+
+  // Possible types for Chrome: ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+  isTypeSupported(type)
+```
+
+### Options for Initialization
 
 ```js
   {
@@ -124,6 +141,3 @@ The MediaRecorder API is still pretty new and full of fun little bugs/features t
  - [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
  - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), the most comprehensive resource
 
-### Demo
-View the example link provided near the top of this README or see it in action on my
-[website](http://www.connoratherton.com/walkway).

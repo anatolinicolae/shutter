@@ -50,6 +50,10 @@ var Shutter = function () {
     this.log('Created Recorder');
   }
 
+  // The same name as the browser for easy remembering
+  // Just gets permission for the browser to use the webcam
+
+
   _createClass(Shutter, [{
     key: 'getUserMedia',
     value: function getUserMedia(callback) {
@@ -65,6 +69,7 @@ var Shutter = function () {
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
         _this.handleStream(mediaStream);
+        callback(mediaStream);
         return mediaStream;
       }).catch(function () {
         _this.getUserMediaError();
@@ -125,6 +130,29 @@ var Shutter = function () {
       this.log('Recording Started');
     }
   }, {
+    key: 'pause',
+    value: function pause() {
+      var event = new Event('timeupdate');
+      this.mediaRecorder.dispatchEvent(event);
+      if (this.isPausingSupported() && this.mediaRecorder.state === 'recording') {
+        this.mediaRecorder.pause();
+        this.log('Recording Paused');
+      }
+    }
+  }, {
+    key: 'isPausingSupported',
+    value: function isPausingSupported() {
+      return _webrtcAdapter2.default.browserDetails.browser !== 'firefox' || _webrtcAdapter2.default.browserDetails.version === 51;
+    }
+  }, {
+    key: 'resume',
+    value: function resume() {
+      if (this.mediaRecorder.state === 'paused') {
+        this.mediaRecorder.resume();
+        this.log('Recording Resumed');
+      }
+    }
+  }, {
     key: 'stop',
     value: function stop(callback) {
       this.mediaRecorder.stop();
@@ -138,6 +166,18 @@ var Shutter = function () {
 
       this.video.setAttribute('autoplay', false);
       this.video.setAttribute('muted', false);
+      this.releaseWebcam();
+    }
+  }, {
+    key: 'releaseWebcam',
+    value: function releaseWebcam() {
+      if (!this.stream) {
+        return;
+      }
+      var tracks = this.stream.getTracks();
+      for (var i = 0; i < tracks.length; i++) {
+        tracks[i].stop();
+      }
     }
   }, {
     key: 'getLinkToFile',

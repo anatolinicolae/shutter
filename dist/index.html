@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>VideoRecorder Test</title>
+      <title>Shutter Demo</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+      <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
       <style>
         #console {
           font-family: monospace;
-          background-color: #DDD;
+          background-color: #EEE;
 
         }
         #console p {
           margin-bottom: 2px;
         }
+        .container {
+          margin-top:40px;
+          width:660px;
+          font-family: 'Lato', sans-serif;
+        }
+        h1 {
+          font-weight:100;
+        }
       </style>
   </head>
   <body>  
     <div class="container">
-    <div class="row">Current state of recorder: <em id="state">inactive</em></div>
+    <h1>Shutter</h1>
+    <hr>
+    <p>Shutter leverages the new MediaRecorder API to record webcam videos natively on the browser. Currently, this will only work with recent versions of Chome and Firefox</p>
+    <p><a href="https://github.com/carnye/shutter">Github Source Code</a></p>
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-2">
-        <video id="video"></video>
+      <div style="text-align:center;">
+        <video style="display:inline-block" id="video"></video>
       </div>      
     </div>
     <div style="text-align:center" class="row">
       <button type="button" class="btn btn-primary" id="start">Start Recording</button>
-      <button type="button" class="btn btn-primary" id="pause">Pause Recording</button>
-      <button type="button" class="btn btn-primary" id="resume">Resume Recording</button>
-      <button type="button" class="btn btn-primary" id="stop">Stop Recording</button>
+      <button disabled type="button" class="btn btn-primary" id="pause">Pause Recording</button>
+      <button disabled type="button" class="btn btn-primary" id="resume">Resume Recording</button>
+      <button disabled type="button" class="btn btn-primary" id="stop">Finish Recording</button>
     </div>
     <div class="row">
-      <p><a href="#" id="downloadLink">Download</a></p>
+      <h5><b><a style="margin-top:30px; text-align:center; display:none" href="#" id="downloadLink">Download</a></b></h5>
     </div>
-
+    <hr>
+    <h5>Console Log:</h5>
     <div id="console" class=" col-md-6 row">
     </div>
 
@@ -58,23 +71,39 @@
       };
       var recorder = new Shutter(options);
       recorder.getUserMedia();
-      
+
+
+      // I kinda forgot what it's like to write javascript without a framework
       document.getElementById('start').addEventListener('click', function() {
         recorder.start();
+        document.getElementById('pause').disabled = false;
+        document.getElementById('stop').disabled = false;
+        document.getElementById('start').disabled = true;
       });
       document.getElementById('pause').addEventListener('click', function() {
         recorder.pause();
+        document.getElementById('resume').disabled = false;
+        document.getElementById('pause').disabled = true;
+
       });
       document.getElementById('resume').addEventListener('click', function() {
         recorder.resume();
+        document.getElementById('resume').disabled = true;
+        document.getElementById('pause').disabled = false;
+
       });
       document.getElementById('stop').addEventListener('click', function() {
+        document.getElementById('start').disabled = false;
+        document.getElementById('pause').disabled = false;
+        document.getElementById('resume').disabled = false;
+        document.getElementById('stop').disabled = false;
         recorder.stop(function(url) {
           document.getElementById('video').src = url;
           document.getElementById('video').controls = true;
 
           var link = document.getElementById('downloadLink');
           link.href = url;
+          link.style.display = "block";
           link.download = 'video.webm';
         });
       });
