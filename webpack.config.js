@@ -18,6 +18,7 @@ module.exports = {
     publicPath: '/',
     filename: 'main.js',
     library: 'Shutter',
+    libraryTarget: 'umd',
   },
   devServer: {
     contentBase: './dist',
