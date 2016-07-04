@@ -1,4 +1,4 @@
-# Shutter 
+# shutter 
 
 A lightweight and simple implementation of the MediaRecorder API for modern versions of Chrome and Firefox. 
 
@@ -10,7 +10,7 @@ npm install shutter
 ```
 
 
-### The Simplest Use
+### The Basic Use Case
 
 HTML:
 ```html
@@ -19,16 +19,19 @@ HTML:
 
 JS:
 ```js
-...
 // Pass in a query selector of the video element you want to use
-var mediaRecorder = new Shutter('#video');
-
-mediaRecorder.getUserMedia();
+var shutter = new Shutter('#video');
 ...
-mediaRecorder.start();
+shutter.getUserMedia();
 ...
-mediaRecorder.stop(function(url){
-   // Do whatever you want with the url here
+shutter.start();
+...
+// Optional Pause/Resume if that's your jam: 
+shutter.pause();
+shutter.resume();
+...
+shutter.stop(function(url) {
+   // Do whatever you want with the blob url here
    // Examples include:
 
    // Setting a download link so the user can download the video file
@@ -92,7 +95,9 @@ mediaRecorder.stop(function(downloadURL) {
     // The file type of the recorded file
     // Possible types for Chrome: ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
     mimeType: 'video/webm',
-
+    
+    // The selector of the video element
+    selector: '#video'
 
     // Verbose mode
     logging: false,
@@ -117,7 +122,7 @@ The MediaRecorder API is still pretty new and full of fun little bugs/features t
 ### Resources
 
  - [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
- - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), the most comprehensize resource
+ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), the most comprehensive resource
 
 ### Demo
 View the example link provided near the top of this README or see it in action on my

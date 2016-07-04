@@ -38,6 +38,8 @@ class Shutter {
     this.log('Created Recorder');
   }
 
+  // The same name as the browser for easy remembering
+  // Just gets permission for the browser to use the webcam
   getUserMedia(callback) {
     // There are the optional constraints but those are very unpredictable
     const constraints = {
@@ -50,13 +52,14 @@ class Shutter {
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
         this.handleStream(mediaStream);
+        callback(mediaStream);
         return mediaStream;
       })
       .catch(() => {
         this.getUserMediaError();
       });
   }
-
+  
   isReadyToRecord() {
     return !! this.stream;
   }
@@ -104,6 +107,26 @@ class Shutter {
     this.log('Recording Started');
   }
 
+  pause() {
+    const event = new Event('timeupdate');
+    this.mediaRecorder.dispatchEvent(event);
+    if (this.isPausingSupported() && this.mediaRecorder.state === 'recording') {
+      this.mediaRecorder.pause();
+      this.log('Recording Paused');
+    }
+  }
+
+  isPausingSupported() {
+    return Adapter.browserDetails.browser !== 'firefox' || Adapter.browserDetails.version === 51;
+  }
+
+  resume() {
+    if (this.mediaRecorder.state === 'paused') {
+      this.mediaRecorder.resume();
+      this.log('Recording Resumed');
+    }
+  }
+
   stop(callback) {
     this.mediaRecorder.stop();
     this.blob = new Blob(this.chunks, { type: this.mimeType });
@@ -116,6 +139,18 @@ class Shutter {
 
     this.video.setAttribute('autoplay', false);
     this.video.setAttribute('muted', false);
+    this.releaseWebcam();
+  }
+
+
+  releaseWebcam() {
+    if (!this.stream) {
+      return;
+    }
+    const tracks = this.stream.getTracks();
+    for (let i = 0; i < tracks.length; i++) {
+      tracks[i].stop();
+    }
   }
 
   getLinkToFile() {

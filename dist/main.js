@@ -135,6 +135,9 @@ var Shutter = function () {
       if (callback && typeof callback === 'function') {
         callback(this.getLinkToFile());
       }
+
+      this.video.setAttribute('autoplay', false);
+      this.video.setAttribute('muted', false);
     }
   }, {
     key: 'getLinkToFile',

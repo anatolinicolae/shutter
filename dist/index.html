@@ -24,6 +24,8 @@
     </div>
     <div style="text-align:center" class="row">
       <button type="button" class="btn btn-primary" id="start">Start Recording</button>
+      <button type="button" class="btn btn-primary" id="pause">Pause Recording</button>
+      <button type="button" class="btn btn-primary" id="resume">Resume Recording</button>
       <button type="button" class="btn btn-primary" id="stop">Stop Recording</button>
     </div>
     <div class="row">
@@ -59,6 +61,12 @@
       
       document.getElementById('start').addEventListener('click', function() {
         recorder.start();
+      });
+      document.getElementById('pause').addEventListener('click', function() {
+        recorder.pause();
+      });
+      document.getElementById('resume').addEventListener('click', function() {
+        recorder.resume();
       });
       document.getElementById('stop').addEventListener('click', function() {
         recorder.stop(function(url) {
