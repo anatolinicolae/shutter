@@ -38,7 +38,7 @@ class Shutter {
     }
 
     this.video.setAttribute('autoplay', true);
-    this.video.setAttribute('muted', true);
+    this.video.muted = true;
     this.log('Created Recorder');
   }
 

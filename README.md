@@ -94,7 +94,8 @@ getLinkToFile();
   // Chrome 49+ and Firefox 25+ are the only browsers supported
   isRecordingSupported();
 
-  // Possible types for Chrome: ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+  // Possible types for Chrome: 
+  // ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
   isTypeSupported(type);
 ```
 
@@ -110,7 +111,8 @@ getLinkToFile();
     height: 480,
     
     // The file type of the recorded file
-    // Possible types for Chrome: ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+    // Possible types for Chrome: 
+    // ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
     mimeType: 'video/webm',
     
     // The selector of the video element

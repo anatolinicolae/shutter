@@ -1,12 +1,12 @@
 {
   "name": "shutter",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Save webcam videos with the MediaRecorder API",
   "main": "./dist/main.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
     "watch": "webpack --watch",
-    "build": "webpack --config ./webpack.config.js ",
+    "build": "webpack --config ./webpack.config.js --optimize-minimize --optimize-dedupe",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -33,7 +33,6 @@
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.5.0",
     "eslint": "^2.13.1",
