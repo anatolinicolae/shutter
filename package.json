@@ -1,6 +1,6 @@
 {
   "name": "shutter",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Save webcam videos with the MediaRecorder API",
   "main": "./dist/main.js",
   "scripts": {

@@ -39,6 +39,7 @@ class Shutter {
 
     this.video.setAttribute('autoplay', true);
     this.video.muted = true;
+
     this.log('Created Recorder');
   }
 
@@ -125,7 +126,7 @@ class Shutter {
   }
 
   isPausingSupported() {
-    return Adapter.browserDetails.browser !== 'firefox' || Adapter.browserDetails.version === 51;
+    return Adapter.browserDetails.browser !== 'firefox' || Adapter.browserDetails.version >= 51;
   }
 
   resume() {
@@ -147,7 +148,7 @@ class Shutter {
     }
 
     this.video.setAttribute('autoplay', false);
-    this.video.setAttribute('muted', false);
+    this.video.muted = false;
     this.releaseWebcam();
   }
 
