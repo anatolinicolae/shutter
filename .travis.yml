@@ -5,7 +5,7 @@ before_script:
   - npm prune
 
 script:
-  - npm run dist
+  - npm run build
 
 deploy:
   provider: releases
