@@ -14,6 +14,7 @@ class Shutter {
     this.height = options.height || 480;
 
     this.mimeType = options.mimeType || 'video/webm';
+    this.fileSize = 0;
 
     if (!this.isTypeSupported(this.mimeType)) {
       this.error('This browser does not support the mimeType "', this.mimeType, '"');
@@ -189,10 +190,13 @@ class Shutter {
   }
 
   getTypesSupported() {
-    const chromeTypes = ['video/webm',
-                          'audio/webm',
-                          'video/webm;codecs=vp8',
-                          'video/webm;codecs=vp9'];
+    const chromeTypes = [
+      'video/webm',
+      'audio/webm',
+      'video/webm;codecs=vp8',
+      'video/webm;codecs=vp9'
+    ];
+
     return chromeTypes;
   }
 
@@ -208,6 +212,4 @@ class Shutter {
 
 }
 
-
 module.exports = Shutter;
-

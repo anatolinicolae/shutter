@@ -16,7 +16,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
-    filename: 'main.js',
+    filename: 'Shutter.js',
     library: 'Shutter',
     libraryTarget: 'umd',
   },
