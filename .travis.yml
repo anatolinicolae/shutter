@@ -12,6 +12,7 @@ deploy:
   api_key:
     secure: FmI8252FBWRyjT666SCBHEpPzIJ+tc2H6nM9AsbdyiH+e6hxpEsqpawJA/W5zfgQ6CLeTrzAC5OHGpct399TuFYJHqBCAKz64/dWY9Aj323PrsxZjKuGC3J5JY1XDfv0pSwD4aYOuFh3QCQGCIe8JUWpPLK+50od+rUxkcstGBIIAUp3JMDJcte4p58TRCB1GSJ9VP/IL5EVH/UaoOKX7JzGyVGNpN0X2vJ9bXen3tx/LIKHDWDYfm34+vrZkYf1/35KEJbTppNhFa/4HZA/3Jl8/UTO3qlo0+SdAR4rgsy8qGSRzUY3JY+iKqm3vxKnIhQD4NpGxwQBTVQyxucZaufPzYAEOwf2366UhNrujO4PBR6W9MLrEatfVWIS7/FCMmgpyLXikGEayr/8rhSzsHRSMsh0WIW8olkJxR5HLegSk28xl0qSkz1KM1bg3h2ikpq7VCJXUeeytnO1LhujhFr9wpRxm3OaLkM6ursYdVIROUAMxkpRq3WD7eu3Zsx/I4facWoAW+vOdSZ0CSfdW8zcna+zSjQvMH9hXX1GcILnDtrgdDBvAbB4QYfFnHt/KhqbyeAHeS6O4TfCNfUBZUlmd3OuYkGlp+rQ9ACIYlGY0gu18dJQsrzT/RQqQ9DjoB/BOqqIjNyga8aupDh5PfyOPWuLueS3iYdxVh0zoNg=
   file: dist/Shutter.js
+  skip_cleanup: true
   on:
     repo: anatolinicolae/shutter
 
