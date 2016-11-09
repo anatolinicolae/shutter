@@ -3,15 +3,18 @@ module.exports = {
   entry: [
     './src/Shutter.js',
   ],
+  devtool: 'source-map',
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loaders: ['babel'],
-    }],
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015']
+        }
+      }
+    ],
   },
   output: {
     path: __dirname + '/dist',
