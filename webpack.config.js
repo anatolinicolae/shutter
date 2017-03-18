@@ -1,31 +1,47 @@
 // The basic build process
+'use strict'
+
+const path = require('path')
+const webpack = require('webpack')
+
 module.exports = {
   entry: [
-    './src/Shutter.js',
+    './src/shutter.js'
   ],
-  devtool: 'source-map',
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
+        test: /\.js$/,
         query: {
           presets: ['es2015']
         }
       }
-    ],
+    ]
   },
   output: {
-    path: __dirname + '/dist',
-    publicPath: '/',
-    filename: 'Shutter.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'shutter.js',
     library: 'Shutter',
     libraryTarget: 'umd',
+    umdNamedDefine: true
   },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: false,
+      mangle: false
+    })
+  ],
   devServer: {
-    contentBase: './dist',
-    hot: true,
-  },
-};
+    contentBase: path.resolve(__dirname, 'dist'),
+    hot: true
+  }
+}
 
