@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://github.com/anatolinicolae/shutter/blob/master/assets/shutter.svg?raw=true" height="128" />
+  <img src="https://github.com/anatolinicolae/shutter/raw/master/assets/shutter.png" height="128" />
   <h3 align="center">Shutter</h3>
-  <p align="center">A lightweight and simple implementation of the MediaRecorder API for modern versions of Chrome and Firefox.</p>
+  <p align="center">Lightweight and simple MediaRecorder API for modern browsers</p>
   <p align="center">
     <a href="https://github.com/anatolinicolae/shutter/releases"><img src="https://img.shields.io/github/release/anatolinicolae/shutter.svg" alt="GitHub version"></a>
     <a href="https://travis-ci.org/anatolinicolae/shutter"><img src="https://img.shields.io/travis/anatolinicolae/shutter.svg" alt="Travis"></a>
@@ -90,23 +90,23 @@ shutter.isTypeSupported(type);
 
 ```js
 {
-	// The width of the video to record
-	// Only certain resolutions are supported by webcams so be careful
-	width: 640,
+  // The width of the video to record
+  // Only certain resolutions are supported by webcams so be careful
+  width: 640,
 
-	// The height of the video
-	height: 480,
+  // The height of the video
+  height: 480,
 
-	// The file type of the recorded file
-	// Possible types for Chrome:
-	// ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
-	mimeType: 'video/webm',
+  // The file type of the recorded file
+  // Possible types for Chrome:
+  // ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+  mimeType: 'video/webm',
 
-	// The selector of the video element
-	selector: '#video',
+  // The selector of the video element
+  selector: '#video',
 
-	// Verbose mode
-	logging: false
+  // Verbose mode
+  logging: false
 }
 ```
 
