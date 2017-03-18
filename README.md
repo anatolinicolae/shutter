@@ -1,20 +1,28 @@
-# Shutter
+<p align="center">
+  <img src="https://github.com/anatolinicolae/shutter/blob/master/assets/shutter.svg?raw=true" height="128" />
+  <h3 align="center">Shutter</h3>
+  <p align="center">A lightweight and simple implementation of the MediaRecorder API for modern versions of Chrome and Firefox.</p>
+  <p align="center">
+    <a href="https://github.com/anatolinicolae/shutter/releases"><img src="https://img.shields.io/github/release/anatolinicolae/shutter.svg" alt="GitHub version"></a>
+    <a href="https://travis-ci.org/anatolinicolae/shutter"><img src="https://img.shields.io/travis/anatolinicolae/shutter.svg" alt="Travis"></a>
+  </p>
+</p>
 
-A lightweight and simple implementation of the MediaRecorder API for modern versions of Chrome and Firefox.
+## The Basic Use Case
 
-### The Basic Use Case
+HTML
 
-HTML:
 ```html
 <video id="video"></video>
 ```
 
-JS:
+JS
+
 ```js
 // Pass in a query selector of the video element you want to use
 // You can initialize with a string selector, or an options object
 // Explained in more depth below
-var shutter = new Shutter('#video')
+let shutter = new Shutter('#video')
 
 shutter.getUserMedia()
 
@@ -30,15 +38,15 @@ shutter.stop((url) => {
   // Potential Ideas:
 
   // Setting a download so the user can download the video file
-  var link = document.getElementById('download')
+  let link = document.getElementById('download')
   link.href = url
   link.download = 'video.webm'
 
   // Upload the video to your server
-  var formData = new FormData()
+  let formData = new FormData()
   formData.append('video', url)
 
-  var request = new XMLHttpRequest()
+  let request = new XMLHttpRequest()
   request.open("POST", "http://foo.com/submitform.php")
   request.send(formData)
 
@@ -46,65 +54,63 @@ shutter.stop((url) => {
   document.getElementById('video').src = url
 
 })
-
 ```
 
-### Additional Methods
+## Additional Methods
 
 ``` js
 // Returns the elapsed time of the recorded video in milliseconds
-getCurrentTime();
+shutter.getCurrentTime();
 
 // Returns the file size of the video in megabits
 // Can only be called after recording has completed and stop() used
-getFileSize();
+shutter.getFileSize();
 
 // Returns a link to the blob URL file of the recorded video
 // Can only be called after recording has completed and stop() used
-getLinkToFile();
+shutter.getLinkToFile();
 
 ```
 
-### Methods for Understanding the MediaRecorder API
+## Methods for Understanding the MediaRecorder API
 
 ```js
-  // While in the spec, pausing is only supported in Chrome 51+ and all Firefox
-  isPausingSupported();
+// While in the spec, pausing is only supported in Chrome 51+ and all Firefox
+shutter.isPausingSupported();
 
-  // Chrome 49+ and Firefox 25+ are the only browsers supported
-  isRecordingSupported();
+// Chrome 49+ and Firefox 25+ are the only browsers supported
+shutter.isRecordingSupported();
 
-  // Possible types for Chrome:
-  // ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
-  isTypeSupported(type);
+// Possible types for Chrome:
+// ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+shutter.isTypeSupported(type);
 ```
 
-### Options for Initialization
+## Options for Initialization
 
 ```js
-  {
-    // The width of the video to record
-    // Only certain resolutions are supported by webcams so be careful
-    width: 640,
+{
+	// The width of the video to record
+	// Only certain resolutions are supported by webcams so be careful
+	width: 640,
 
-    // The height of the video
-    height: 480,
+	// The height of the video
+	height: 480,
 
-    // The file type of the recorded file
-    // Possible types for Chrome:
-    // ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
-    mimeType: 'video/webm',
+	// The file type of the recorded file
+	// Possible types for Chrome:
+	// ['video/webm','audio/webm','video/webm;codecs=vp8','video/webm;codecs=vp9'];
+	mimeType: 'video/webm',
 
-    // The selector of the video element
-    selector: '#video',
+	// The selector of the video element
+	selector: '#video',
 
-    // Verbose mode
-    logging: false,
-
-  }
+	// Verbose mode
+	logging: false
+}
 ```
 
-### Notes
+## Notes
 
 The MediaRecorder API is still pretty new and full of fun little bugs/features that need to be kept in mind.
 
@@ -116,11 +122,11 @@ The MediaRecorder API is still pretty new and full of fun little bugs/features t
 - Configuring the bitrate for the video and audio is in the spec, but due to a [mix-up with kilobits and bits](https://bugs.chromium.org/p/chromium/issues/detail?id=605750&can=1&q=MediaRecorder%20bitrate&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified) it does not work in Chrome
 - Likewise, pausing and resuming does not work in Chrome 49 and Chrome 50 due to [this issue](https://bugs.chromium.org/p/chromium/issues/detail?id=593560&can=1&q=MediaRecorder%20pausing&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified)
 
-### Resources
+## Resources
 
  - [Chrome MediaRecorder Announcement](https://developers.google.com/web/updates/2016/01/mediarecorder?hl=en)
  - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder), the most comprehensive resource
 
-### Credits
+## Credits
 
 The code was initially written by [Sean Carney](/carnye), who shut down the repository some time ago :cry:
