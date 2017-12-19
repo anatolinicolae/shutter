@@ -34,7 +34,7 @@
     "xo": "^0.18.2"
   },
   "devDependencies": {
-    "webpack": "^2.2.1",
+    "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   },
   "xo": {
