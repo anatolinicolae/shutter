@@ -3724,6 +3724,12 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
+rtcpeerconnection-shim@^1.1.13:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/rtcpeerconnection-shim/-/rtcpeerconnection-shim-1.2.4.tgz#5b178f57d35fe88e423c50d28d7507ececc9f3b2"
+  dependencies:
+    sdp "^2.2.0"
+
 run-async@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-0.1.0.tgz#c8ad4a5e110661e402a7d21b530e009f25f8e389"
@@ -3738,9 +3744,9 @@ safe-buffer@5.1.1, safe-buffer@^5.0.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-sdp@^1.3.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/sdp/-/sdp-1.4.1.tgz#68e1a8d88e3a10ae098aaf32b147b70851b42165"
+sdp@^2.2.0, sdp@^2.3.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-2.5.0.tgz#b15a0b1dfd0a38f6a8c780e58f8c8fe73c29ffe5"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -4417,11 +4423,12 @@ webpack@^2.2.1:
     webpack-sources "^0.1.4"
     yargs "^6.0.0"
 
-webrtc-adapter@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-3.2.0.tgz#53f5f0336f67f7f3b091ff8b6a03f399923c09ca"
+webrtc-adapter@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.0.3.tgz#850ab1649099922086c2c038c87c10c46d0c42cc"
   dependencies:
-    sdp "^1.3.0"
+    rtcpeerconnection-shim "^1.1.13"
+    sdp "^2.3.0"
 
 websocket-driver@>=0.5.1:
   version "0.6.5"
