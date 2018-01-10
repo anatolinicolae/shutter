@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.10.0"
+    "webpack-dev-server": "^2.10.1"
   },
   "xo": {
     "extends": "xo-react",
