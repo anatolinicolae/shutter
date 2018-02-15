@@ -30,7 +30,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "timer-stopwatch": "^0.2.0",
-    "webrtc-adapter": "^6.1.0",
+    "webrtc-adapter": "^6.1.1",
     "xo": "^0.20.1"
   },
   "devDependencies": {
