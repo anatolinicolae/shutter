@@ -5192,9 +5192,9 @@ webpack@^4.1.1:
     watchpack "^1.5.0"
     webpack-sources "^1.0.1"
 
-webrtc-adapter@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.1.1.tgz#83ab2a7e2a364a9a9fd7cd3cad807e2eeb5edec6"
+webrtc-adapter@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.1.2.tgz#aa3529e229c18a34dce438acb2458ee342aa5a08"
   dependencies:
     rtcpeerconnection-shim "^1.1.13"
     sdp "^2.3.0"
