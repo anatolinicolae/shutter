@@ -1,7 +1,7 @@
 'use strict'
 
-import Adapter from 'webrtc-adapter'
-import Stopwatch from 'timer-stopwatch'
+const Adapter = require('webrtc-adapter')
+const Stopwatch = require('timer-stopwatch')
 
 class Shutter {
 
@@ -51,15 +51,25 @@ class Shutter {
 
   // The same name as the browser for easy remembering
   // Just gets permission for the browser to use the webcam
-  getUserMedia(callback) {
+  getUserMedia(options, callback) {
     // There are the optional constraints but those are very unpredictable
-    const constraints = {
-      video: {
-        minWidth: this.width || 1280,
-        minHeight: this.height || 720
+    let constraints = {
+      audio: {
+        contentType: 'audio/webm; codecs=opus',
+        channels: '2', // audio channels used by the track
+        bitrate: 132266, // number of bits used to encode a second of audio
+        samplerate: 48000 // number of samples of audio carried per second
       },
-      audio: true
+      video: {
+        contentType: 'video/webm; codecs="vp09.00.10.08"',
+        width: this.width || 1920,
+        height: this.height || 1080,
+        bitrate: 2646242, // number of bits used to encode a second of video
+        framerate: '25' // number of frames used in one second
+      }
     }
+
+    constraints = Object.assign({}, constraints, options)
 
     return navigator.mediaDevices.getUserMedia(constraints)
       .then((mediaStream) => {
@@ -203,7 +213,8 @@ class Shutter {
       'video/webm',
       'audio/webm',
       'video/webm;codecs=vp8',
-      'video/webm;codecs=vp9'
+      'video/webm;codecs=vp9',
+      'video/webm; codecs="vp09.00.10.08"'
     ]
 
     return chromeTypes
@@ -218,7 +229,6 @@ class Shutter {
       console.log(message)
     }
   }
-
 }
 
 module.exports = Shutter
