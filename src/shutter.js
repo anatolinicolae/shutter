@@ -9,13 +9,13 @@ class Shutter {
   constructor(options) {
 
     this.logging = options.logging || false
-    this.stream = ''
+    this.stream = null
 
     // The options can just be a string and it'll use all the defaults
     this.selector = typeof options === 'string' ? options : options.selector
 
-    this.width = options.width || 640
-    this.height = options.height || 480
+    this.width = options.width || 1920
+    this.height = options.height || 1080
 
     this.mimeType = options.mimeType || 'video/webm'
     this.fileSize = 0
@@ -29,7 +29,7 @@ class Shutter {
     this.timer = new Stopwatch()
     this.currentTime = 0
 
-    this.timer.onTime((time) => {
+    this.timer.onTime(time => {
       this.currentTime = time.ms
     })
 
@@ -72,7 +72,7 @@ class Shutter {
     constraints = Object.assign({}, constraints, options)
 
     return navigator.mediaDevices.getUserMedia(constraints)
-      .then((mediaStream) => {
+      .then(mediaStream => {
         this.log('Webcam hooked up')
         // We can't pass this in as a handler because then the handleStream would lose the lexical
         // scope of this
@@ -82,7 +82,7 @@ class Shutter {
         }
         return mediaStream
       })
-      .catch((error) => {
+      .catch(error => {
         this.error(error)
       })
   }
@@ -95,16 +95,18 @@ class Shutter {
   handleStream(mediaStream) {
     this.stream = mediaStream
     this.video.src = window.URL.createObjectURL(mediaStream)
-    const options = { mimeType: this.mimeType }
+    const options = {
+      mimeType: this.mimeType
+    }
     this.mediaRecorder = new MediaRecorder(this.stream, options)
 
-    this.mediaRecorder.ondataavailable = (event) => {
+    this.mediaRecorder.ondataavailable = event => {
       if (event.data && event.data.size > 0) {
         this.chunks.push(event.data)
       }
     }
 
-    this.mediaRecorder.onerror = (error) => {
+    this.mediaRecorder.onerror = error => {
       this.error(error)
     }
     this.mediaRecorder.onpause = () => {
@@ -119,7 +121,7 @@ class Shutter {
     this.mediaRecorder.onstop = () => {
       this.timer.stop()
     }
-    this.mediaRecorder.onwarning = (warning) => {
+    this.mediaRecorder.onwarning = warning => {
       this.error(warning)
     }
   }
@@ -185,7 +187,7 @@ class Shutter {
 
   releaseWebcam() {
     if (!this.stream) {
-      return;
+      return
     }
     const tracks = this.stream.getTracks()
     for (let i = 0; i < tracks.length; i++) {
@@ -212,8 +214,8 @@ class Shutter {
     const chromeTypes = [
       'video/webm',
       'audio/webm',
-      'video/webm;codecs=vp8',
-      'video/webm;codecs=vp9',
+      'video/webm; codecs=vp8',
+      'video/webm; codecs=vp9',
       'video/webm; codecs="vp09.00.10.08"'
     ]
 
