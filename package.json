@@ -27,7 +27,7 @@
   "homepage": "https://github.com/carnye/shutter#readme",
   "dependencies": {
     "timer-stopwatch": "^0.2.0",
-    "webrtc-adapter": "^6.4.4"
+    "webrtc-adapter": "^7.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
